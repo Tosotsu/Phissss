@@ -1,0 +1,49 @@
+% ==========================================
+% CHAPTER: PROPOSED SYSTEM
+% ==========================================
+
+\newpage
+\chapter{PROPOSED SYSTEM}
+\label{ch:proposed_system}
+
+\section{SYSTEM OVERVIEW}
+The \textbf{GYMEYE} platform is an intelligent, AI-driven fitness assistant designed to monitor, analyze, and correct user exercise postures in real time. It utilizes a standard webcam or smartphone camera to capture continuous human movements without the need for specialized wearable sensors. A state-of-the-art pose estimation model, such as MediaPipe BlazePose, processes the video feed to extract precise 3D body keypoints. 
+
+The system then calculates critical joint angles and biomechanical alignments, comparing them against ideal reference values curated for specific exercises (e.g., squats, deadlifts, bicep curls). Based on these continuous calculations, GYMEYE provides immediate, actionable feedback to the user—such as ``bend lower,'' ``straighten your back,'' or ``maintain this posture''—ensuring a safe and effective workout experience.
+
+\section{SYSTEM ARCHITECTURE}
+The architecture of the GYMEYE system is highly modular, ensuring seamless data flow from video capture to real-time feedback generation. The input is processed locally or on edge devices to minimize latency, feeding the extracted spatial coordinates into the analytical engine which evaluates the posture against the established exercise logic.
+
+\begin{figure}[htbp]
+    \centering
+    % Note: Ensure you have an image named 'architecture.png' in your assets folder
+    \includegraphics[width=0.8\textwidth]{assets/architecture.png}
+    \captionsetup{justification=centering}
+    \caption{System Architecture of GYMEYE}
+    \label{fig:gymeye_arch}
+\end{figure}
+
+\section{MODULE DESCRIPTION}
+The proposed system comprises several interconnected modules that work collaboratively to deliver real-time fitness monitoring:
+
+\begin{itemize}
+    \item \textbf{Input Module:} Intercepts and captures the real-time video feed from the user's hardware (webcam or smartphone). It performs initial preprocessing, such as frame resizing and noise reduction, to optimize the feed for the neural network.
+    
+    \item \textbf{Pose Detection Module:} Acts as the core computer vision engine. It utilizes lightweight frameworks like MediaPipe or OpenPose to detect and track 33 key human body landmarks (e.g., shoulders, elbows, hips, knees, and ankles) in 3D space with high precision.
+    
+    \item \textbf{Posture Evaluation Module:} Functions as the analytical brain of the system. It continuously computes the geometric angles between the detected joint landmarks and compares these dynamic values against predefined biomechanical thresholds to identify form deviations.
+    
+    \item \textbf{Feedback Module:} Responsible for user interaction. It translates the analytical data into intuitive on-screen visual overlays (such as color-coded joint lines) and triggers instant auditory alerts or voice instructions to correct the user's posture mid-exercise.
+    
+    \item \textbf{Performance Analysis Module:} Operates as the data tracking and reporting layer. It logs the user's workout metrics, repetition counts, and accuracy scores over time, storing the session data securely for future review and progress visualization.
+\end{itemize}
+
+\section{ADVANTAGES OF THE PROPOSED SYSTEM}
+The implementation of the GYMEYE system offers several distinct advantages over traditional fitness monitoring methods:
+
+\begin{itemize}
+    \item \textbf{Real-Time Posture Correction:} Delivers instantaneous feedback, allowing users to adjust their form immediately during the exercise rather than analyzing mistakes post-workout.
+    \item \textbf{Low Computational Cost:} By leveraging optimized models like MediaPipe, the system operates efficiently on standard consumer hardware without requiring expensive GPUs or specialized depth sensors.
+    \item \textbf{High Accessibility and Compatibility:} The software-centric approach ensures it can be easily deployed across various platforms, including mobile applications and web browsers.
+    \item \textbf{Enhanced Safety and Consistency:} By continuously monitoring biomechanical limits, the system significantly reduces the risk of musculoskeletal injuries while promoting consistent, high-quality exercise habits.
+\end{itemize}

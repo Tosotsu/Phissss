@@ -1,0 +1,260 @@
+% -----------------------
+% CHAPTER 5: IMPLEMENTATION
+% -----------------------
+
+\chapter{IMPLEMENTATION}
+\label{ch:implementation}
+
+\section{ALGORITHM DESCRIPTION}
+
+This section describes the major algorithms used in the \textbf{Hybrid Phishing Defense} system for feature extraction, real-time URL interception, AI-based threat prediction, and blockchain-based threat logging. Algorithms play an important role in the functioning of the system as they define the logical steps followed by the software to process user inputs and generate appropriate security outputs.
+
+In the \textbf{Hybrid Phishing Defense} system, multiple algorithms work together to ensure accurate threat monitoring and intelligent browsing assistance. The feature extraction algorithm identifies 89 unique lexical and host-based data points from the raw URL input using natural language processing and statistical techniques. 
+
+The real-time URL interception algorithm manages the data capture and access control process of the browser extension. It verifies URL requests during the browsing process and ensures that only safe traffic is allowed to execute on the platform.
+
+The AI-based threat prediction algorithm tracks the risk score of the URL during a browsing session. It continuously observes web requests and records metrics such as classification probability, feature weights, and zero-day threat likelihood. 
+
+Another important component of the system is the blockchain-based threat logging algorithm. This algorithm retrieves relevant smart contract data from a decentralized ledger and generates an immutable threat record when critical phishing attempts are detected.
+
+\subsection{URL FEATURE EXTRACTION ALGORITHM}
+\textbf{Algorithm Steps:}
+\begin{enumerate}
+    \item Start
+    \item Activate the background script
+    \item Capture active tab URL continuously
+    \item Apply the Python parsing module
+    \item Detect structural anomalies such as URL length, entropy, and special characters
+    \item Calculate host-based features and IP address presence
+    \item Compile the 89 extracted features into a normalized numerical vector
+    \item If extraction is successful, forward the result for AI inference
+    \item Display parsing status on screen
+    \item Repeat until browsing session ends
+    \item End
+\end{enumerate}
+
+\subsection{REAL-TIME URL INTERCEPTION ALGORITHM}
+\textbf{Algorithm Steps:}
+\begin{enumerate}
+    \item Start
+    \item User navigates to a new URL
+    \item System retrieves AI risk score from middleware
+    \item Compare risk score with the predefined safety threshold (0.5)
+    \item If risk score is below 0.5
+    \begin{enumerate}[label=\theenumi.\arabic*]
+        \item Grant access to the webpage
+    \end{enumerate}
+    \item Else
+    \begin{enumerate}[label=\theenumi.\arabic*]
+        \item Display proactive blocking overlay and warning message
+    \end{enumerate}
+    \item End
+\end{enumerate}
+
+\subsection{HYBRID CNN-LSTM PREDICTION ALGORITHM}
+\textbf{Algorithm Steps:}
+\begin{enumerate}
+    \item Start URL scan session
+    \item Activate AI middleware input
+    \item Detect spatial feature anomalies using the 1D Convolutional layer
+    \item Monitor sequential URL patterns using the LSTM layer
+    \item Fuse feature outputs
+    \item Measure binary cross-entropy loss
+    \item Estimate phishing probability using Sigmoid activation
+    \item Record confidence score percentage
+    \item Update browser extension dashboard
+    \item Store scan details in local database
+    \item End
+\end{enumerate}
+
+\subsection{BLOCKCHAIN-BASED THREAT LOGGING ALGORITHM}
+\textbf{Algorithm Steps:}
+\begin{enumerate}
+    \item Start
+    \item Receive threat prediction result from AI middleware module
+    \item Convert URL string and risk score into a smart contract payload
+    \item Retrieve current gas fees and wallet connection from MetaMask
+    \item Pass signed transaction to the Ethereum RPC endpoint
+    \item Generate immutable threat hash on the Sepolia testnet
+    \item Display transaction confirmation to the user
+    \item Store generated hash in scan history
+    \item Continue monitoring until the browsing session ends
+    \item End
+\end{enumerate}
+
+\section{TABLE DESCRIPTION}
+
+The database stores user details and URL scan session information. The following tables are used in the \textbf{Hybrid Phishing Defense} system.
+
+\begin{table}[h]
+\centering
+\renewcommand{\arraystretch}{1.5}
+% Strict column widths guarantee it won't bleed off the page
+\begin{tabular}{|p{0.08\textwidth}|p{0.25\textwidth}|p{0.20\textwidth}|p{0.35\textwidth}|}
+\hline
+\textbf{SI.No} & \textbf{Attribute} & \textbf{Data Type} & \textbf{Description} \\
+\hline
+1 & user\_id & INT & Primary Key \\
+\hline
+2 & wallet\_address & VARCHAR(100) & Connected Web3 MetaMask address \\
+\hline
+3 & email & VARCHAR(100) & Unique email address (Optional) \\
+\hline
+4 & auth\_token & VARCHAR(255) & JWT authentication token \\
+\hline
+5 & total\_scans & INT & Lifetime URLs scanned by user \\
+\hline
+6 & threats\_blocked & INT & Number of phishing sites prevented \\
+\hline
+7 & reputation\_score & FLOAT & User reliability score in DAO \\
+\hline
+8 & network\_pref & VARCHAR(50) & Ethereum / Polygon / Local \\
+\hline
+9 & strict\_mode & BOOLEAN & High sensitivity blocking toggle \\
+\hline
+10 & account\_status & VARCHAR(50) & Active / Suspended \\
+\hline
+\end{tabular}
+\captionsetup{justification=centering}
+\caption{Users Table}
+\end{table}
+
+\begin{table}[h]
+\centering
+\renewcommand{\arraystretch}{1.5}
+% Strict column widths guarantee it won't bleed off the page
+\begin{tabular}{|p{0.08\textwidth}|p{0.25\textwidth}|p{0.20\textwidth}|p{0.35\textwidth}|}
+\hline
+\textbf{SI.No} & \textbf{Attribute} & \textbf{Data Type} & \textbf{Description} \\
+\hline
+1 & scan\_id & INT & Primary Key \\
+\hline
+2 & user\_id & INT & Foreign Key referencing Users table \\
+\hline
+3 & raw\_url & VARCHAR(500) & Intercepted URL string \\
+\hline
+4 & url\_hash & VARCHAR(255) & Keccak256 hash of the URL \\
+\hline
+5 & extract\_time & INT & Processing duration in ms \\
+\hline
+6 & risk\_score & FLOAT & AI confidence score (0.0 - 1.0) \\
+\hline
+7 & verdict & VARCHAR(50) & Safe / Phishing \\
+\hline
+8 & txn\_hash & VARCHAR(255) & Ethereum blockchain receipt \\
+\hline
+9 & date\_time & DATETIME & Scan timestamp \\
+\hline
+\end{tabular}
+\captionsetup{justification=centering}
+\caption{Scan Registry Table}
+\end{table}
+
+\clearpage
+
+\section{SAMPLE CODE}
+
+This section presents sample code snippets used in the implementation of the \textbf{Hybrid Phishing Defense} system. These examples demonstrate how deep learning, middleware routing, and blockchain-based logging mechanisms are integrated into the platform.
+
+\subsection{Hybrid CNN-LSTM Model Definition}
+
+The following code constructs the neural network architecture using Keras.
+
+\begin{lstlisting}[language=Python, caption={Hybrid CNN-LSTM Definition using Keras}, label={code:ai_model}]
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Embedding, Conv1D, \
+    MaxPooling1D, LSTM, Dense, Dropout
+
+def build_phishing_model(vocab_size, max_length):
+    model = Sequential()
+    
+    # Embedding and Spatial Feature Extraction
+    model.add(Embedding(input_dim=vocab_size, 
+                        output_dim=128, 
+                        input_length=max_length))
+    model.add(Conv1D(filters=64, 
+                     kernel_size=5, 
+                     activation='relu'))
+    model.add(MaxPooling1D(pool_size=2))
+    
+    # Sequential Pattern Analysis
+    model.add(LSTM(100, return_sequences=False))
+    model.add(Dropout(0.5))
+    
+    # Output Classification
+    model.add(Dense(64, activation='relu'))
+    model.add(Dense(1, activation='sigmoid'))
+    
+    model.compile(optimizer='adam', 
+                  loss='binary_crossentropy', 
+                  metrics=['accuracy'])
+    return model
+\end{lstlisting}
+
+\subsection{Flask Middleware API}
+
+\begin{lstlisting}[language=Python, caption={Flask Middleware API}, label={code:api_route}]
+from flask import Flask, request, jsonify
+import numpy as np
+
+app = Flask(__name__)
+
+@app.route('/scan', methods=['POST'])
+def scan_url():
+    data = request.get_json()
+    url = data.get("url")
+    
+    # Example logic for thresholding
+    risk_score = 0.95 
+    verdict = "Phishing" if risk_score >= 0.5 else "Safe"
+
+    # Return structured JSON to the browser extension
+    return jsonify({
+        "url": url, 
+        "score": risk_score, 
+        "verdict": verdict
+    })
+\end{lstlisting}
+
+\subsection{Smart Contract Logging Mechanism}
+
+\begin{lstlisting}[caption={Smart Contract Logging Mechanism}, label={code:smart_contract}]
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.19;
+
+contract PhishingRegistry {
+    struct PhishingReport {
+        string urlHash;
+        uint8 riskScore;
+        address reporter;
+        uint256 timestamp;
+    }
+
+    mapping(string => bool) public isReported;
+    PhishingReport[] public reports;
+
+    function addPhishingURL(
+        string memory _urlHash, 
+        uint8 _riskScore
+    ) public {
+        
+        // Ensure threat isn't already logged
+        require(!isReported[_urlHash], 
+                "Threat already logged.");
+                
+        // Ensure risk score is high enough
+        require(_riskScore >= 50, 
+                "Risk score too low.");
+
+        reports.push(PhishingReport({
+            urlHash: _urlHash,
+            riskScore: _riskScore,
+            reporter: msg.sender,
+            timestamp: block.timestamp
+        }));
+        
+        isReported[_urlHash] = true;
+    }
+}
+\end{lstlisting}

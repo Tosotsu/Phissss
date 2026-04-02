@@ -1,0 +1,121 @@
+
+
+% ---------------------------------------------------------
+% CHAPTER 2: SYSTEM ANALYSIS
+% ---------------------------------------------------------
+\chapter{SYSTEM ANALYSIS}
+
+\section{EXISTING SYSTEM}
+
+Traditional phishing defense systems mainly depend on centralized blacklists, such as Google Safe Browsing, or manual reporting platforms like PhishTank. While these centralized databases can provide protection against known threats, they are inherently reactive. A malicious domain must first be identified, manually reported, and verified by a central authority before it is added to the list, creating a critical "zero-day" window where users are completely unprotected.
+
+Most existing security applications only track basic metadata or rely on simple heuristic rules, such as checking for an '@' symbol or an IP address in the URL. These systems do not perform deep sequential analysis of the URL structure or analyze host-based features in real time. As a result, users may unknowingly navigate to highly obfuscated phishing sites that easily bypass standard filters, leading to credential theft and financial loss.
+
+Additionally, because these existing systems are highly centralized, they represent single points of failure. If the central database server is compromised, experiences downtime, or is subject to censorship, the end-user's security is effectively neutralized.
+
+\subsection{SCOPE AND LIMITATIONS}
+
+The existing phishing monitoring systems are limited in their ability to provide proactive detection for zero-day threats and decentralized intelligence sharing.
+
+\noindent $\bullet$ \textbf{Scope of Existing System}
+
+\begin{itemize}[label=*]
+\item Provides threat detection based on known, verified blacklists.
+\item Tracks basic URL metadata and common suspicious keywords.
+\item Offers general browser protection through centralized cloud lookups.
+\end{itemize}
+
+\noindent $\bullet$ \textbf{Limitations}
+
+\begin{itemize}[label=*]
+\item No real-time AI-based prediction for zero-day phishing URLs.
+\item Lack of an automated, decentralized threat-sharing mechanism.
+\item Dependence on central authorities for verification and list updates.
+\item Vulnerability to single points of failure and database censorship.
+\item Limited ability to analyze sequential URL patterns using deep learning.
+\end{itemize}
+
+\section{FEASIBILITY STUDY}
+
+The feasibility study evaluates the practicality of developing the \textbf{Hybrid Phishing Defense} system based on technical, economic, and operational factors.
+
+\begin{itemize}
+\item \textbf{Technical Feasibility:} The system is technically feasible due to the availability of advanced deep learning frameworks such as TensorFlow and Keras, alongside blockchain interaction libraries like Web3.py. These tools enable real-time feature extraction and smart contract execution. 
+\item \textbf{Economic Feasibility:} The system can be developed using open-source technologies such as Python, Flask, and React, which significantly reduces development costs. By utilizing the Ethereum Sepolia Testnet, the cost of transaction gas remains zero during development.
+\item \textbf{Operational Feasibility:} The system provides a user-friendly interface via a Chrome Extension that allows users to browse securely while receiving real-time risk scores. The automated nature of the blockchain logging requires minimal user intervention.
+\end{itemize}
+
+\section{SYSTEM REQUIREMENTS}
+
+System requirements define the functional capabilities and quality attributes that the system must satisfy for proper operation.
+
+\subsection{FUNCTIONAL REQUIREMENTS}
+
+\begin{enumerate}
+\item \textbf{URL Interception and Parsing:} Intercept URLs from the browser in real-time and extract 89 lexical and host-based features.
+\item \textbf{AI-Based Threat Prediction:} Process features using a hybrid CNN-LSTM model to generate a risk score.
+\item \textbf{Blockchain Verification:} Query the decentralized ledger to check if a URL has already been flagged.
+\item \textbf{Immutable Threat Logging:} Record confirmed phishing URLs onto the blockchain using smart contracts.
+\item \textbf{Real-Time Visual Alerts:} Provide immediate visual feedback to the user through the browser extension.
+\end{enumerate}
+
+\subsection{NON-FUNCTIONAL REQUIREMENTS}
+
+\begin{enumerate}
+\item \textbf{Accuracy:} Maintain a high detection accuracy (target $>98\%$) to minimize false positives.
+\item \textbf{Performance:} Provide real-time inference results (low latency) without disrupting browsing flow.
+\item \textbf{Security:} Secure communication between the extension and backend middleware.
+\item \textbf{Scalability:} Support a growing number of concurrent users and an expanding blockchain ledger.
+\item \textbf{Reliability:} Ensure high availability by relying on decentralized nodes.
+\end{enumerate}
+
+\newpage
+
+\subsection{SOFTWARE REQUIREMENTS}
+
+\begin{table}[htbp]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|l|l|}
+\hline
+\textbf{Sl.No} & \textbf{Requirement} & \textbf{Specification} \\
+\hline
+1 & Programming Language & Python 3.9+, Solidity, JavaScript \\
+\hline
+2 & Frameworks & TensorFlow/Keras, Flask, React \\
+\hline
+3 & Frontend & Google Chrome Extension (Manifest V3) \\
+\hline
+4 & Blockchain Network & Ethereum Sepolia Testnet \\
+\hline
+5 & Libraries & Web3.py, Flask-CORS, NumPy \\
+\hline
+6 & IDE & Visual Studio Code \\
+\hline
+\end{tabular}
+\caption{Software Requirements}
+\end{table}
+
+\subsection{HARDWARE REQUIREMENTS}
+
+\begin{table}[htbp]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|l|l|}
+\hline
+\textbf{Sl.No} & \textbf{Requirement} & \textbf{Specification} \\
+\hline
+1 & Processor & Intel Core i3 or above \\
+\hline
+2 & RAM & Minimum 8 GB (for AI model inference) \\
+\hline
+3 & Storage & At least 256 GB SSD \\
+\hline
+4 & Network & High-speed internet (for RPC communication) \\
+\hline
+5 & Operating System & Windows 10 / Linux / macOS \\
+\hline
+\end{tabular}
+\caption{Hardware Requirements}
+\end{table}
+

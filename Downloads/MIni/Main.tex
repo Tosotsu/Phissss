@@ -1,0 +1,107 @@
+\documentclass{seminarreport}
+
+% --- Required Packages ---
+\usepackage{enumitem}
+\usepackage{subcaption}
+\usepackage{algpseudocode}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{chngcntr}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{tocloft}
+
+% --- Caption and Formatting Settings ---
+\captionsetup{labelfont=bf, textfont=normalfont}
+\renewcommand{\cftchappresnum}{Chapter\ }
+\renewcommand{\cftchapaftersnum}{.\quad}
+\settowidth{\cftchapnumwidth}{Chapter 10.\quad}
+\counterwithin{table}{section}
+\usepackage[justification=centering]{caption}
+\def\newblock{\hskip .11em plus .33em minus .07em}
+\captionsetup{justification = raggedright, singlelinecheck = false}
+\captionsetup[subfigure]{justification=centering,singlelinecheck=false}
+
+% --- Custom Chapter Heading Styles ---
+\makeatletter
+\def\@makechapterhead#1{%
+  \vspace*{-20\p@}% 
+  {\parindent \z@ \centering  \normalfont
+    \ifnum \c@secnumdepth >\m@ne
+        \huge\bfseries \@chapapp\space \thechapter
+        \par\nobreak
+    \fi
+    \interlinepenalty\@M
+    \Huge \bfseries #1\par\nobreak
+    \vskip 40\p@
+  }}
+\def\@makeschapterhead#1{%
+  {\parindent \z@ \centering 
+    \normalfont
+    \interlinepenalty\@M
+    \Huge \bfseries  #1\par\nobreak
+    \vskip 20\p@
+  }}
+\makeatother
+
+% ==========================================
+% DOCUMENT BEGINS HERE
+% ==========================================
+\begin{document}
+
+% --- Generate Cover Page (from seminarreport.cls) ---
+\maketitle
+
+\pagenumbering{roman}
+
+% --- Acknowledgement ---
+\addcontentsline{toc}{chapter}{ACKNOWLEDGEMENT}
+\input{acknowledgement}
+\newpage
+
+% --- Abstract ---
+\addcontentsline{toc}{chapter}{ABSTRACT}
+\input{abstract}
+\newpage
+
+% --- Table of Contents ---
+\tableofcontents
+\newpage
+
+% --- List of Figures ---
+\addcontentsline{toc}{chapter}{LIST OF FIGURES}
+\listoffigures
+\newpage
+
+% --- List of Tables ---
+\addcontentsline{toc}{chapter}{LIST OF TABLES}
+\listoftables
+\newpage
+
+% --- List of Abbreviations ---
+\addcontentsline{toc}{chapter}{LIST OF ABBREVIATIONS}
+\input{abbrevations}
+\newpage
+
+% --- Main Chapters ---
+\pagenumbering{arabic}
+\input{introduction}
+\input{literature}
+\input{SystemAnalysis}
+\input{systemdesign}
+\input{implementation}
+\input{testing}
+\input{results}
+
+% Note: If your compiler throws an error here, rename your file to 'conclusion.tex' 
+% without spaces and update this line to \input{conclusion}
+\input{conclusion and Future works}
+
+% --- References ---
+\clearpage
+\addcontentsline{toc}{chapter}{REFERENCES}
+\input{reference}
+
+\end{document}

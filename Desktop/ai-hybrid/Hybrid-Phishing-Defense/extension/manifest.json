@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Hybrid AI-Blockchain Phishing Guard",
+  "version": "1.0",
+  "description": "Real-time phishing detection using Deep Learning and Blockchain Consensus.",
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1:5000/*",
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Scan Status"
+  }
+}

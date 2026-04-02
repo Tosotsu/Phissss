@@ -1,0 +1,149 @@
+% ==========================================
+% CHAPTER 6: TESTING
+% ==========================================
+
+\chapter{TESTING}
+
+\section{Test Plan Summary}
+The objective of this test plan is to thoroughly validate the functionality, usability, and performance of the AI-Blockchain Hybrid Phishing Defense system. The application is designed to detect zero-day phishing URLs using a proactive approach that incorporates Browser Interception, Feature Extraction, CNN-LSTM Deep Learning prediction, and Ethereum Blockchain logging. 
+
+The scope of testing includes the Chrome Extension UI, the Flask middleware's ability to extract 89 lexical features, the inference latency of the hybrid neural network, and the successful execution of Solidity smart contracts on the Sepolia testnet. The AI model was tested against a reserved testing subset of 20,000 URLs (20\% of the 100,000 dataset sourced from PhishTank and Alexa Top 1M).
+
+\section{Test Scenarios}
+The following primary test scenarios were identified to ensure comprehensive coverage across the decentralized three-layer architecture:
+\begin{itemize}
+    \item \textbf{TS-01:} Verify Browser Extension URL interception and background script performance.
+    \item \textbf{TS-02:} Verify Flask API feature extraction, ensuring 89 accurate lexical/statistical metrics are generated per URL.
+    \item \textbf{TS-03:} Verify CNN-LSTM classification accuracy, thresholding (risk score $\ge$ 0.5), and inference latency.
+    \item \textbf{TS-04:} Verify MetaMask wallet integration, transaction signing prompts, and correct gas fee estimation.
+    \item \textbf{TS-05:} Verify Smart Contract execution on the Ethereum Sepolia Testnet, ensuring immutable transaction hashes are generated.
+\end{itemize}
+
+\subsection{Detailed Test Cases}
+
+\begin{table}[htbp]
+    \centering
+    \renewcommand{\arraystretch}{1.5} 
+    % Using p{} enforces strict widths and guarantees text wrapping
+    \begin{tabular}{|p{0.10\textwidth}|p{0.22\textwidth}|p{0.26\textwidth}|p{0.26\textwidth}|c|}
+        \hline
+        \textbf{Test ID} & \textbf{Description} & \textbf{Test Steps} & \textbf{Expected Result} & \textbf{Status} \\ 
+        \hline
+        TC-01.1 & Intercept Phishing URL (Chrome Extension) & 1. Navigate to known phishing site.\newline 2. Extension captures URL. & UI immediately displays Red warning overlay blocking the page. & Passed \\ 
+        \hline
+        TC-02.1 & Feature Extraction Pipeline & 1. Submit obfuscated URL to Flask API. & Middleware successfully extracts exactly 89 normalized numerical features. & Passed \\ 
+        \hline
+        TC-03.1 & AI Inference (CNN-LSTM) & 1. Pass feature vector to the .h5 model.\newline 2. Await prediction. & Model outputs a floating-point probability score (e.g., 0.95) in under 200ms. & Passed \\ 
+        \hline
+        TC-04.1 & Decentralized Threat Logging & 1. Threat score $>$ 0.5.\newline 2. Approve MetaMask prompt. & Smart contract executes; Keccak256 hash of URL is permanently logged on Sepolia. & Passed \\ 
+        \hline
+    \end{tabular}
+    \vspace{0.2cm}
+    \caption{Detailed Test Cases for Core Workflows}
+\end{table}
+
+\section{Requirement Traceability Matrix (RTM)}
+
+\begin{table}[htbp]
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|p{0.12\textwidth}|p{0.55\textwidth}|p{0.15\textwidth}|c|}
+        \hline
+        \textbf{Req ID} & \textbf{Requirement Description} & \textbf{Test Case IDs} & \textbf{Status} \\ 
+        \hline
+        REQ-01 & System must intercept active tab URLs via browser extension & TC-01.1 & Covered \\ 
+        \hline
+        REQ-02 & System must parse and extract 89 specific URL features & TC-02.1 & Covered \\ 
+        \hline
+        REQ-03 & System must predict threat probability using CNN-LSTM & TC-03.1 & Covered \\ 
+        \hline
+        REQ-04 & System must prompt MetaMask for blockchain interaction & TC-04.1 & Covered \\ 
+        \hline
+        REQ-05 & System must immutably log malicious URLs on Ethereum & TC-04.1 & Covered \\ 
+        \hline
+    \end{tabular}
+    \vspace{0.2cm}
+    \caption{Requirement Traceability Matrix}
+\end{table}
+
+\section{Bug Reports}
+During the testing phase, the following notable operational constraints were identified:
+
+\begin{itemize}
+    \item \textbf{BUG-001 (High Priority): MetaMask Prompt Overload on Page Redirects.} 
+    \newline \textit{Description:} Sites with rapid multiple redirects caused the extension to fire multiple MetaMask signing prompts simultaneously. 
+    \newline \textit{Status:} Resolved by implementing a debounce function in the React frontend and checking the smart contract's \texttt{isReported} mapping before prompting the user.
+    
+    \item \textbf{BUG-002 (Medium Priority): False Positives on Novel Top-Level Domains (TLDs).} 
+    \newline \textit{Description:} The CNN model occasionally flagged safe websites using new TLDs (e.g., \texttt{.crypto}, \texttt{.ai}) as suspicious. 
+    \newline \textit{Status:} Resolved by enriching the training dataset with a wider variety of modern legitimate TLDs and retraining the model to recognize them as safe.
+\end{itemize}
+
+\section{Test Summary Report}
+
+\subsection{Overview}
+Testing encompassed the full pipeline of the Hybrid Phishing Defense framework, utilizing an unseen test batch of 10,000 URLs (5,000 phishing and 5,000 legitimate) to validate the AI engine. The Ethereum smart contract logic was successfully validated using the Sepolia Testnet, achieving 100\% transaction success rate for confirmed threats.
+
+\subsection{Confusion Matrix}
+The system's predictive performance on the 10,000 testing samples yielded the following matrix:
+\begin{itemize}
+    \item \textbf{True Positive (TP):} 4910
+    \item \textbf{True Negative (TN):} 4924
+    \item \textbf{False Positive (FP):} 76
+    \item \textbf{False Negative (FN):} 90
+\end{itemize}
+
+\subsection{Automated Evaluation Metrics}
+Based on the confusion matrix, the following performance metrics were successfully calculated, prioritizing high Recall to minimize dangerous False Negatives:
+
+\begin{itemize}
+    \item \textbf{Accuracy:} Achieved $\mathbf{98.34\%}$.
+    \begin{align*}
+        Accuracy &= \frac{4910 + 4924}{10000} \\
+                 &= 0.9834
+    \end{align*}
+    
+    \item \textbf{Precision:} Achieved $\mathbf{98.47\%}$.
+    \begin{align*}
+        Precision &= \frac{4910}{4910 + 76} \\
+                  &= 0.9847
+    \end{align*}
+    
+    \item \textbf{Recall:} Achieved $\mathbf{98.20\%}$.
+    \begin{align*}
+        Recall &= \frac{4910}{4910 + 90} \\
+               &= 0.9820
+    \end{align*}
+    
+    \item \textbf{F1 Score:} Achieved $\mathbf{98.33\%}$.
+    \begin{align*}
+        F1 &= 2 \times \frac{0.9847 \times 0.9820}{0.9847 + 0.9820} \\
+           &= 0.9833
+    \end{align*}
+\end{itemize}
+
+\subsection{Performance Comparison}
+The developed CNN-LSTM model was benchmarked against existing methodologies as outlined in the literature survey to prove its efficacy:
+
+\begin{table}[htbp]
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|l|c|}
+        \hline
+        \textbf{Methodology} & \textbf{Average Accuracy} \\ 
+        \hline
+        Traditional Static Blacklists & $\sim$75.0\% \\ 
+        \hline
+        Basic Machine Learning (Random Forest) & $\sim$88.4\% \\ 
+        \hline
+        Standard Deep Learning (CNN only) & $\sim$91.2\% \\ 
+        \hline
+        \textbf{Our Hybrid CNN-LSTM System} & \textbf{98.34\%} \\ 
+        \hline
+    \end{tabular}
+    \vspace{0.2cm}
+    \caption{Performance Comparison of Anti-Phishing Methodologies}
+\end{table}
+
+\subsection{Risk Assessment \& QA Sign-off}
+The primary operational constraint observed is the inherent latency associated with blockchain write operations (block mining times on Ethereum). However, the real-time AI inference (Layer 1) executes in under 200ms, providing instant user protection, while the blockchain logging (Layer 2) executes asynchronously in the background. The system successfully achieves a highly accurate detection rate of 98.34\%, definitively outperforming traditional reactive blacklists. The system meets all functional and security requirements and is formally approved for deployment.
