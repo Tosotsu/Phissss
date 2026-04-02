@@ -1,0 +1,10 @@
+flask
+flask-cors
+web3
+tensorflow
+numpy
+pandas
+scikit-learn
+requests
+beautifulsoup4
+tldextract
